@@ -33,15 +33,26 @@ jobs:
 
   - script: >
       pipelineJob('jenkins-env-automation') {
-        description('This job sets up the Jenkins environment and runs tests using the Jenkinsfile.')
+        description('This job sets up the Jenkins environment using jenkins_automation repo for code and jenkins_configs repo for Jenkinsfile.')
         definition {
           cpsScm {
             scm {
-              git {
-                remote {
-                  url('https://github.com/cqNikolaus/jenkins_automation.git')
+              // Verwende Multiple SCMs, um mehrere Repositories zu klonen
+              multibranch {
+                sources {
+                  git {
+                    remote {
+                      url('https://github.com/cqNikolaus/jenkins_automation.git')
+                    }
+                    branch('main')
+                  }
+                  git {
+                    remote {
+                      url('https://github.com/cqNikolaus/jenkins_configs.git')
+                    }
+                    branch('bootstrap')
+                  }
                 }
-                branch('main')
               }
             }
             scriptPath('jenkins_configs/Jenkinsfile')
