@@ -44,7 +44,7 @@ jobs:
                 branch('main')
               }
             }
-            scriptPath('Jenkinsfile')
+            scriptPath('jenkins_configs/Jenkinsfile')
           }
         }
       }
@@ -62,7 +62,7 @@ jobs:
                 branch('main')
               }
             }
-            scriptPath('Jenkinsfile_setup')
+            scriptPath('jenkins_configs/Jenkinsfile_setup')
           }
         }
       }
