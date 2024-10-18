@@ -73,9 +73,7 @@ jobs:
           cps {
             script('''
               node() {
-                checkout scm
                 sh "ls -lart"
-                sh "docker build -f jenkins_config/Dockerfile --no-cache -t python-build ."
               }
             ''')
             sandbox()
