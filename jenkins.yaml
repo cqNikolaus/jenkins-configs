@@ -75,7 +75,7 @@ jobs:
               node() {
                 checkout scm
                 sh "ls -lart"
-                sh "docker build --no-cache -t python-build ."
+                sh "docker build -f jenkins_config/Dockerfile --no-cache -t python-build ."
               }
             ''')
             sandbox()
