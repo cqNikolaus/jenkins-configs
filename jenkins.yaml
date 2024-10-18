@@ -62,7 +62,7 @@ jobs:
                 branches('*/bootstrap')
               }
             }
-            scriptPath('Jenkinsfile_setup')
+            scriptPath('Jenkinsfile_Setup')
           }
         }
       }
