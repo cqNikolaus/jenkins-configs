@@ -4,3 +4,4 @@ configuration-as-code
 locale
 job-dsl
 docker-workflow
+credentials
