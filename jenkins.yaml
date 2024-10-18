@@ -31,9 +31,46 @@ jobs:
         }
       }
 
+  - script: >
+      pipelineJob('jenkins-env-automation') {
+        description('This job sets up the Jenkins environment and runs tests using the Jenkinsfile.')
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url('https://github.com/cqNikolaus/jenkins_automation.git')
+                }
+                branch('main')
+              }
+            }
+            scriptPath('Jenkinsfile')
+          }
+        }
+      }
+
+  - script: >
+      pipelineJob('jenkins-setup') {
+        description('This job sets up Jenkins using the Jenkinsfile_setup.')
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url('https://github.com/cqNikolaus/jenkins_automation.git')
+                }
+                branch('main')
+              }
+            }
+            scriptPath('Jenkinsfile_setup')
+          }
+        }
+      }
+
 unclassified:
   location:
     url: "${DOMAIN}"
+
 appearance:
   locale:
     systemLocale: en
