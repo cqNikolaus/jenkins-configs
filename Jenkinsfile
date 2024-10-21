@@ -22,19 +22,26 @@ pipeline {
     }
     stage('Create Jenkins Instance') {
       steps {
-        withCredentials([sshUserPrivateKey(credentialsId: 'SSH_PRIVATE_KEY', keyFileVariable: 'SSH_KEY_FILE'), 
-        usernamePassword(credentialsId: 'JENKINS_ADMIN_CREDENTIALS', usernameVariable: 'JENKINS_USER', passwordVariable: 'JENKINS_PASS')
+        withCredentials([usernamePassword(credentialsId: 'JENKINS_ADMIN_CREDENTIALS', usernameVariable: 'JENKINS_USER', passwordVariable: 'JENKINS_PASS')
         ]) {
-          withEnv(["JENKINS_USER=${env.JENKINS_USER}", "JENKINS_PASS=${env.JENKINS_PASS}"]) {
+          // Debugging: Ausgabe der Jenkins-Umgebungsvariable außerhalb des Shell-Skripts
+          echo "JENKINS_USER (Jenkins env): ${env.JENKINS_USER}"
           sh '''
             set -e
             echo "create jenkins instance"
+
+            
+            echo "=== Environment Variables ==="
+            env
+
+            echo "JENKINS_USER inside shell: $JENKINS_USER"
+
+
             chmod 600 $SSH_KEY_FILE
             export SSH_PRIVATE_KEY="$(cat $SSH_KEY_FILE)"
             pip install -e .
             python scripts/main.py create_jenkins --config-repo https://github.com/cqNikolaus/jenkins_configs.git --branch bootstrap
           '''
-          }
         }
       }
     }
