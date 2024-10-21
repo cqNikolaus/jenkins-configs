@@ -23,13 +23,13 @@ pipeline {
         stage('Setup Environment') {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'SSH_PRIVATE_KEY', keyFileVariable: 'SSH_KEY_FILE'), 
-                usernamePassword(credentialsId: 'JENKINS_ADMIN_CREDENTIALS', usernameVariable: 'ABC', passwordVariable: 'JENKINS_PASS')
+                usernamePassword(credentialsId: 'JENKINS_ADMIN_CREDENTIALS', usernameVariable: 'JENKINS_USER', passwordVariable: 'JENKINS_PASSW')
                 ]) {
                     sh '''
                         set -e
                         echo "set up the environment"
                         echo "${ABC}"
-                        echo "${JENKINS_PASS}"
+                        echo "${JENKINS_PASSW}"
                         chmod 600 $SSH_KEY_FILE
                         export SSH_PRIVATE_KEY=$(cat $SSH_KEY_FILE)
                         pip install -e .
