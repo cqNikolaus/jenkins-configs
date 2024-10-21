@@ -3,8 +3,8 @@ jenkins:
     local:
       allowsSignup: false
       users:
-        - id: "${ADMIN_USER}"
-          password: "${ADMIN_PASS}"
+        - id: "${JENKINS_ADMIN_CREDENTIALS}"
+          password: "${JENKINS_PASS}"
   authorizationStrategy:
     loggedInUsersCanDoAnything:
       allowAnonymousRead: false
