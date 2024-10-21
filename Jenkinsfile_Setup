@@ -36,15 +36,5 @@ pipeline {
                 }
             }
         }
-        stage('Credetials'){
-            steps{
-                withCredentials(usernamePassword(credentialsId: 'JENKINS_ADMIN_CREDENTIALS', usernameVariable: 'JENKINS_USER', passwordVariable: 'JENKINS_PASS')) {
-                    sh '''
-                        curl https://$DOMAIN/jnlpJars/jenkins-cli.jar
-                        java -jar jenkins-cli.jar -s https://$DOMAIN/ -auth $JENKINS_USER $JENKINS_PASS list-credentials-as-xml system::system::jenkins                
-                    '''
-                }
-            }
-        }
     }
 }
