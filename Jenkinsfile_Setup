@@ -23,12 +23,12 @@ pipeline {
         stage('Setup Environment') {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'SSH_PRIVATE_KEY', keyFileVariable: 'SSH_KEY_FILE'), 
-                usernamePassword(credentialsId: 'JENKINS_ADMIN_CREDENTIALS', usernameVariable: 'JENKINS_USER', passwordVariable: 'JENKINS_PASSW')
+                usernamePassword(credentialsId: 'JENKINS_ADMIN_CREDENTIALS', usernameVariable: 'JENKINS_USERO', passwordVariable: 'JENKINS_PASSW')
                 ]) {
                     sh '''
                         set -e
                         echo "set up the environment"
-                        echo "${JENKINS_USER}"
+                        echo "${JENKINS_USERO}"
                         echo "${JENKINS_PASSW}"
                         chmod 600 $SSH_KEY_FILE
                         export SSH_PRIVATE_KEY=$(cat $SSH_KEY_FILE)
