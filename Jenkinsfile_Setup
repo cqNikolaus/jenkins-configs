@@ -29,7 +29,7 @@ pipeline {
                         set -e
                         echo "set up the environment"
                         echo "${ABC}"
-                        echo "${DATEN}"
+                        echo "${JENKINS_PASS}"
                         chmod 600 $SSH_KEY_FILE
                         export SSH_PRIVATE_KEY=$(cat $SSH_KEY_FILE)
                         pip install -e .
