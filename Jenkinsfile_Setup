@@ -29,6 +29,7 @@ pipeline {
                         set -e
                         echo "set up the environment"
                         chmod 600 $SSH_KEY_FILE
+                        echo "private key: ${SSH_PRIVATE_KEY}"
                         pip install -e .
                         python scripts/create_environment.py --config-repo https://github.com/cqNikolaus/jenkins_configs.git --branch bootstrap
                     '''
