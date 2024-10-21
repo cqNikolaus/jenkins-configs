@@ -29,6 +29,7 @@ pipeline {
           sh '''
             set -e
             echo "create jenkins instance"
+            echo "credentials: {JENKINS_USER}"
 
             
             echo "=== Environment Variables ==="
@@ -37,7 +38,7 @@ pipeline {
             echo "JENKINS_USER inside shell: $JENKINS_USER"
 
 
-            chmod 600 $SSH_KEY_FILE
+            chmod 600 "$SSH_KEY_FILE"
             export SSH_PRIVATE_KEY="$(cat $SSH_KEY_FILE)"
             pip install -e .
             python scripts/main.py create_jenkins --config-repo https://github.com/cqNikolaus/jenkins_configs.git --branch bootstrap
