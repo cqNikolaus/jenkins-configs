@@ -22,20 +22,19 @@ pipeline {
         }
         stage('Setup Environment') {
             steps {
-                script {
-                    withCredentials([sshUserPrivateKey(credentialsId: 'SSH_PRIVATE_KEY', keyFileVariable: 'SSH_KEY_FILE'), 
-                    usernamePassword(credentialsId: 'JENKINS_ADMIN_CREDENTIALS', usernameVariable: 'JENKINS_USER', passwordVariable: 'JENKINS_PASS')
-                    ]) {
-                        sh '''
-                            set -e
-                            echo "set up the environment"
-                            echo "credentials: ${JENKINS_USER}"
-                            chmod 600 $SSH_KEY_FILE
-                            export SSH_PRIVATE_KEY=$(cat $SSH_KEY_FILE)
-                            pip install -e .
-                            # python scripts/create_environment.py --config-repo https://github.com/cqNikolaus/jenkins_configs.git --branch bootstrap
-                        '''
-                    }
+                withCredentials([sshUserPrivateKey(credentialsId: 'SSH_PRIVATE_KEY', keyFileVariable: 'SSH_KEY_FILE'), 
+                usernamePassword(credentialsId: 'DATEN', usernameVariable: 'ABC', passwordVariable: 'JENKINS_PASS')
+                ]) {
+                    sh '''
+                        set -e
+                        echo "set up the environment"
+                        echo "${ABC}"
+                        echo "&{DATEN}"
+                        chmod 600 $SSH_KEY_FILE
+                        export SSH_PRIVATE_KEY=$(cat $SSH_KEY_FILE)
+                        pip install -e .
+                        python scripts/create_environment.py --config-repo https://github.com/cqNikolaus/jenkins_configs.git --branch bootstrap
+                    '''
                 }
             }
         }
