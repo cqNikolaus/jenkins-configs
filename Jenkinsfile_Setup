@@ -23,7 +23,7 @@ pipeline {
         stage('Setup Environment') {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'SSH_PRIVATE_KEY', keyFileVariable: 'SSH_KEY_FILE'), 
-                usernamePassword(credentialsId: 'JENKINS_ADMIN_CREDENTIALS', usernameVariable: 'ADMIN_USER', passwordVariable: 'ADMIN_PASS')
+                usernamePassword(credentialsId: 'JENKINS_ADMIN_CREDENTIALS', usernameVariable: 'JENKINS_USER', passwordVariable: 'JENKINS_PASS')
                 ]) {
                     sh '''
                         set -e
