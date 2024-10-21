@@ -37,7 +37,6 @@ pipeline {
                 }
             }
         }
-    }
         stage('Setup Environment') {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'SSH_PRIVATE_KEY', keyFileVariable: 'SSH_KEY_FILE'), 
