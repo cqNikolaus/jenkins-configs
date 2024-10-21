@@ -29,7 +29,7 @@ pipeline {
           sh '''
             set -e
             echo "create jenkins instance"
-            echo "credentials: {JENKINS_USER}"
+            echo "credentials: ${JENKINS_USER}"
 
             
             echo "=== Environment Variables ==="
