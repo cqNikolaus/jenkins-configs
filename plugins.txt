@@ -6,7 +6,6 @@ docker-workflow
 docker-plugin
 credentials
 jobConfigHistory
-pipelineConfigHistory
 pipeline-graph-view
 pipeline-maven
 pipeline-stage-view
@@ -17,4 +16,3 @@ warnings-ng
 git
 gitlab-plugin
 gitlab-branch-source
-javax-mail
