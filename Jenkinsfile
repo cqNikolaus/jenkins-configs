@@ -28,8 +28,8 @@ pipeline {
           sh '''
             set -e
             echo "create jenkins instance"
-            echo "JENKINS_USER: $JENKINS_USER"
-            echo "JENKINS_PASS: $JENKINS_PASS"
+            echo "Jenkins User: ${env.JENKINS_USER}"
+            echo "Jenkins Pass: ${env.JENKINS_PASS}"
             chmod 600 $SSH_KEY_FILE
             export SSH_PRIVATE_KEY="$(cat $SSH_KEY_FILE)"
             pip install -e .
