@@ -28,7 +28,7 @@ pipeline {
                     sh '''
                         set -e
                         echo "set up the environment"
-                        echo "${ABC}"
+                        echo "${JENKINS_USER}"
                         echo "${JENKINS_PASSW}"
                         chmod 600 $SSH_KEY_FILE
                         export SSH_PRIVATE_KEY=$(cat $SSH_KEY_FILE)
