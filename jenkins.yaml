@@ -33,7 +33,7 @@ jobs:
 
   - script: >
       pipelineJob('jenkins-env-automation') {
-        description('This job sets up Jenkins using the Jenkinsfile_setup.')
+        description('This job automates Jenkins setup, testing, and environment management.')
         definition {
           cpsScm {
             scm {
