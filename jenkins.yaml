@@ -32,7 +32,7 @@ credentials:
       - basicSSHUserPrivateKey:
           scope: GLOBAL
           id: "ssh-private-key"
-          username: "jenkins"
+          username: "root"
           description: "SSH Private Key"
           privateKeySource:
             directEntry:
