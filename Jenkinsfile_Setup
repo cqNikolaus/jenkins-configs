@@ -29,6 +29,8 @@ pipeline {
                     sh '''
                         set -e
                         echo "set up the environment"
+                        export API_TOKEN="${API_TOKEN}"
+                        export DNS_API_TOKEN="${DNS_API_TOKEN}"
                         pip install -e .
                         python scripts/create_environment.py --config-repo https://github.com/cqNikolaus/jenkins_configs.git --branch bootstrap
                     '''
