@@ -1,18 +1,28 @@
-workflow-aggregator
 configuration-as-code
+git
 locale
-job-dsl
+workflow-aggregator
 docker-workflow
+junit
 docker-plugin
-credentials
+
+# support plugins
+job-dsl
+pipeline-maven
+timestamper
+pipeline-config-history
 jobConfigHistory
 pipeline-graph-view
-pipeline-maven
-pipeline-stage-view
-ssh
-swarm
-timestamper
 warnings-ng
-git
+pipeline-stage-view
+
+# agent
+ssh-slaves
+swarm
+
+# gitlab
 gitlab-plugin
 gitlab-branch-source
+
+### kubernetes
+# kubernetes
