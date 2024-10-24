@@ -27,20 +27,21 @@ pipeline {
                     string(credentialsId: 'hetzner-dns-api-token', variable: 'DNS_API_TOKEN')
                 ]) {
                     script {
-                        // Base64-Kodierung der Credentials
-                        def encodedApiToken = sh(script: "echo -n '${API_TOKEN}' | base64", returnStdout: true).trim()
-                        def encodedDnsApiToken = sh(script: "echo -n '${DNS_API_TOKEN}' | base64", returnStdout: true).trim()
-                        def encodedSshKeyFile = sh(script: "echo -n '${SSH_KEY_FILE}' | base64", returnStdout: true).trim()
+                        // Base64-kodierung der Credentials ohne Zeilenumbrüche
+                        def encodedApiToken = sh(script: "echo -n '${API_TOKEN}' | base64 -w 0", returnStdout: true).trim()
+                        def encodedDnsApiToken = sh(script: "echo -n '${DNS_API_TOKEN}' | base64 -w 0", returnStdout: true).trim()
+                        def sshKeyContent = readFile("${SSH_KEY_FILE}")
+                        def encodedSshKeyFile = sh(script: "echo '${sshKeyContent}' | base64 -w 0", returnStdout: true).trim()
 
                         sh '''
                             set -e
                             # Exportiere die kodierten Variablen
-                            export ENCODED_API_TOKEN=''' + encodedApiToken + '''
-                            export ENCODED_DNS_API_TOKEN=''' + encodedDnsApiToken + '''
-                            export ENCODED_SSH_KEY_FILE=''' + encodedSshKeyFile + '''
+                            export ENCODED_API_TOKEN=''' + "'" + encodedApiToken + "'" + '''
+                            export ENCODED_DNS_API_TOKEN=''' + "'" + encodedDnsApiToken + "'" + '''
+                            export ENCODED_SSH_KEY_FILE=''' + "'" + encodedSshKeyFile + "'" + '''
                             export JENKINS_USER=''' + "${JENKINS_USER}" + '''
                             export JENKINS_PASS=''' + "${JENKINS_PASS}" + '''
-                            echo "set up the environment"
+                            echo "Setze die Umgebung auf"
                             pip install -e .
                             python scripts/create_environment.py --config-repo https://github.com/cqNikolaus/jenkins_configs.git --branch bootstrap
                         '''
