@@ -73,7 +73,7 @@ jobs:
                 remote {
                   url('https://github.com/cqNikolaus/jenkins_automation')
                 }
-                branches('*/mainp')
+                branches('*/main')
               }
             }
             scriptPath('Jenkinsfile')
