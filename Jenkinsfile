@@ -8,7 +8,7 @@ pipeline {
   environment {
     API_TOKEN = credentials('HETZNER_API_TOKEN')
     DNS_API_TOKEN = credentials('HETZNER_DNS_API_TOKEN')
-    DOMAIN = "jenkins-${env.BUILD_ID}.comquent.academy"
+    DOMAIN = "${params.DOMAIN}"
     ZONE_NAME = "comquent.academy" 
     SSH_KEY_NAME = 'clemens.nikolaus@comquent.de'
     JOB_NAME = 'docker-test'
@@ -22,9 +22,12 @@ pipeline {
     }
     stage('Create Jenkins Instance') {
       steps {
-        withCredentials([sshUserPrivateKey(credentialsId: 'SSH_PRIVATE_KEY', keyFileVariable: 'SSH_KEY_FILE'), 
-        usernamePassword(credentialsId: 'JENKINS_ADMIN_CREDENTIALS', usernameVariable: 'JENKINS_USER', passwordVariable: 'JENKINS_PASS')
-        ]) {
+        withCredentials([
+          sshUserPrivateKey(credentialsId: 'ssh-private-key', keyFileVariable: 'H_SSH_PRIVATE_KEY'),
+          usernamePassword(credentialsId: 'jenkins-admin-credentials', usernameVariable: 'JENKINS_USER', passwordVariable: 'JENKINS_PASS'),
+          string(credentialsId: 'hetzner-api-token', variable: 'H_API_TOKEN'),
+          string(credentialsId: 'hetzner-dns-api-token', variable: 'H_DNS_API_TOKEN')
+      ]) {
           sh '''
             set -e
             echo "create jenkins instance"
@@ -36,9 +39,12 @@ pipeline {
     }
     stage('Pipeline Test') { 
       steps {
-        withCredentials([sshUserPrivateKey(credentialsId: 'SSH_PRIVATE_KEY', keyFileVariable: 'SSH_KEY_FILE'),
-        usernamePassword(credentialsId: 'JENKINS_ADMIN_CREDENTIALS', usernameVariable: 'JENKINS_USER', passwordVariable: 'JENKINS_PASS')
-        ]) {
+        withCredentials([
+          sshUserPrivateKey(credentialsId: 'ssh-private-key', keyFileVariable: 'H_SSH_PRIVATE_KEY'),
+          usernamePassword(credentialsId: 'jenkins-admin-credentials', usernameVariable: 'JENKINS_USER', passwordVariable: 'JENKINS_PASS'),
+          string(credentialsId: 'hetzner-api-token', variable: 'H_API_TOKEN'),
+          string(credentialsId: 'hetzner-dns-api-token', variable: 'H_DNS_API_TOKEN')
+      ]) {
           sh '''
             set -e
             echo "check successful pipeline job"
@@ -49,7 +55,7 @@ pipeline {
     }
     stage('Create DNS Record') {
       steps {
-        withCredentials([sshUserPrivateKey(credentialsId: 'SSH_PRIVATE_KEY', keyFileVariable: 'SSH_KEY_FILE')]) {
+        withCredentials([sshUserPrivateKey(credentialsId: 'ssh-private-key', keyFileVariable: 'H_SSH_PRIVATE_KEY')]) {
           sh '''
             set -e
             echo "create dns record"
@@ -73,7 +79,7 @@ pipeline {
     }
     stage('Setup Nginx and SSL') { 
       steps {
-        withCredentials([sshUserPrivateKey(credentialsId: 'SSH_PRIVATE_KEY', keyFileVariable: 'SSH_KEY_FILE')]) {
+        withCredentials([sshUserPrivateKey(credentialsId: 'ssh-private-key', keyFileVariable: 'H_SSH_PRIVATE_KEY')]) {
           sh '''
             set -e
             echo "setup nginx and ssl"

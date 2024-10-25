@@ -63,6 +63,9 @@ jobs:
   - script: >
       pipelineJob('jenkins-env-automation') {
         description('This job automates Jenkins setup, testing, and environment management.')
+        parameters {
+          stringParam('DOMAIN', '', 'Specify the domain for the Jenkins instance, e.g. jenkinsinstance.comquent.academy')
+        }
         definition {
           cpsScm {
             scm {
