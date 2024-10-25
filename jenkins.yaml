@@ -71,9 +71,9 @@ jobs:
             scm {
               git {
                 remote {
-                  url('https://github.com/cqNikolaus/jenkins_configs.git')
+                  url('https://github.com/cqNikolaus/jenkins_automation')
                 }
-                branches('*/bootstrap')
+                branches('*/mainp')
               }
             }
             scriptPath('Jenkinsfile')
@@ -92,9 +92,9 @@ jobs:
             scm {
               git {
                 remote {
-                  url('https://github.com/cqNikolaus/jenkins_configs.git')
+                  url('https://github.com/cqNikolaus/jenkins_automation.git')
                 }
-                branches('*/bootstrap')
+                branches('*/main')
               }
             }
             scriptPath('Jenkinsfile_Setup')
