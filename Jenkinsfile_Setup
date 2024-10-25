@@ -10,7 +10,7 @@ pipeline {
         ZONE_NAME = "comquent.academy"
         SSH_KEY_NAME = 'clemens.nikolaus@comquent.de'
         JOB_NAME = 'docker-test'
-        SSL_EMAIL = 'clemens.nikolaus@comquent.de'
+        SSL_EMAIL= 'clemens.nikolaus@comquent.de'
     }
     stages {
         stage('Checkout Workspace') {
@@ -26,26 +26,12 @@ pipeline {
                     string(credentialsId: 'hetzner-api-token', variable: 'API_TOKEN'),
                     string(credentialsId: 'hetzner-dns-api-token', variable: 'DNS_API_TOKEN')
                 ]) {
-                    script {
-                        // Base64-kodierung der Credentials ohne Zeilenumbrüche
-                        def encodedApiToken = sh(script: "echo -n '${API_TOKEN}' | base64 -w 0", returnStdout: true).trim()
-                        def encodedDnsApiToken = sh(script: "echo -n '${DNS_API_TOKEN}' | base64 -w 0", returnStdout: true).trim()
-                        def sshKeyContent = readFile("${SSH_KEY_FILE}")
-                        def encodedSshKeyFile = sh(script: "echo '${sshKeyContent}' | base64 -w 0", returnStdout: true).trim()
-
-                        sh '''
-                            set -e
-                            # Exportiere die kodierten Variablen
-                            export ENCODED_API_TOKEN=''' + "'" + encodedApiToken + "'" + '''
-                            export ENCODED_DNS_API_TOKEN=''' + "'" + encodedDnsApiToken + "'" + '''
-                            export ENCODED_SSH_KEY_FILE=''' + "'" + encodedSshKeyFile + "'" + '''
-                            export JENKINS_USER=''' + "${JENKINS_USER}" + '''
-                            export JENKINS_PASS=''' + "${JENKINS_PASS}" + '''
-                            echo "Setze die Umgebung auf"
-                            pip install -e .
-                            python scripts/create_environment.py --config-repo https://github.com/cqNikolaus/jenkins_configs.git --branch bootstrap
-                        '''
-                    }
+                    sh '''
+                        set -e
+                        echo "set up the environment"
+                        pip install -e .
+                        python scripts/create_environment.py --config-repo https://github.com/cqNikolaus/jenkins_configs.git --branch bootstrap
+                    '''
                 }
             }
         }
