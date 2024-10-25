@@ -6,7 +6,6 @@ pipeline {
         }
     }
     environment {
-        DOMAIN = "jenkins-${env.BUILD_ID}.comquent.academy"
         ZONE_NAME = "comquent.academy"
         SSH_KEY_NAME = 'clemens.nikolaus@comquent.de'
         JOB_NAME = 'docker-test'
@@ -16,6 +15,15 @@ pipeline {
         stage('Checkout Workspace') {
             steps {
                 git branch: 'main', url: 'https://github.com/cqNikolaus/jenkins_automation.git'
+            }
+        }
+        stage('Initialize') {
+            steps {
+                script {
+                    def timestamp = new Date().format('yyyyMMddHHmmss')
+                    env.DOMAIN = "jenkinsc-${timestamp}.comquent.academy"
+                    echo "DOMAIN is set to ${env.DOMAIN}"
+                }
             }
         }
         stage('Setup Environment') {
