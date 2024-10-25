@@ -10,7 +10,7 @@ pipeline {
         SSH_KEY_NAME = 'clemens.nikolaus@comquent.de'
         JOB_NAME = 'docker-test'
         SSL_EMAIL= 'clemens.nikolaus@comquent.de'
-        DOMAIN = "${params.DOMAIN}"
+        DOMAIN = "testjenkinstest.comquent.academy"
     }
     stages {
         stage('Checkout Workspace') {
