@@ -23,8 +23,8 @@ pipeline {
                 withCredentials([
                     sshUserPrivateKey(credentialsId: 'ssh-private-key', keyFileVariable: 'SSH_KEY_FILE'),
                     usernamePassword(credentialsId: 'jenkins-admin-credentials', usernameVariable: 'JENKINS_USER', passwordVariable: 'JENKINS_PASS'),
-                    string(credentialsId: 'hetzner-api-token', variable: 'API_TOKEN'),
-                    string(credentialsId: 'hetzner-dns-api-token', variable: 'DNS_API_TOKEN')
+                    string(credentialsId: 'hetzner-api-token', variable: 'H_API_TOKEN'),
+                    string(credentialsId: 'hetzner-dns-api-token', variable: 'H_DNS_API_TOKEN')
                 ]) {
                     sh '''
                         set -e
