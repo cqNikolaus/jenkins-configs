@@ -6,6 +6,8 @@ pipeline {
         }
     }
     environment {
+        H_API_TOKEN = credentials('hetzner-api-token')
+        H_DNS_API_TOKEN = credentials('hetzner-dns-api-token')
         DOMAIN = "jenkinscc-${env.BUILD_NUMBER}.comquent.academy" 
         ZONE_NAME = "comquent.academy"
         SSH_KEY_NAME = 'clemens.nikolaus@comquent.de'
