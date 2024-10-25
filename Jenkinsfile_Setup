@@ -6,6 +6,7 @@ pipeline {
         }
     }
     environment {
+        DOMAIN = "cnjenkins-${env.BUILD_NUMBER}.comquent.academy" 
         ZONE_NAME = "comquent.academy"
         SSH_KEY_NAME = 'clemens.nikolaus@comquent.de'
         JOB_NAME = 'docker-test'
@@ -20,12 +21,12 @@ pipeline {
         stage('Initialize') {
             steps {
                 script {
-                    def timestamp = new Date().format('yyyyMMddHHmmss')
-                    env.DOMAIN = "jenkinsc-${timestamp}.comquent.academy"
-                    echo "DOMAIN is set to ${env.DOMAIN}"
-                }
+                    def timestamp = new Date().format('MMddHHmmss')
+                    def randomNumber = new Random().nextInt(100)  // Zufallszahl zwischen 0 und 99
+                    env.DOMAIN = "jenkinsc-${timestamp}${randomNumber}.comquent.academy"
+
             }
-        }
+        }    
         stage('Setup Environment') {
             steps {
                 withCredentials([
