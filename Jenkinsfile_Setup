@@ -10,21 +10,13 @@ pipeline {
         SSH_KEY_NAME = 'clemens.nikolaus@comquent.de'
         JOB_NAME = 'docker-test'
         SSL_EMAIL= 'clemens.nikolaus@comquent.de'
+        DOMAIN = "${params.DOMAIN}"
     }
     stages {
         stage('Checkout Workspace') {
             steps {
                 git branch: 'main', url: 'https://github.com/cqNikolaus/jenkins_automation.git'
             }
-        }
-        stage('Initialize') {
-            steps {
-                script {
-                    def timestamp = new Date().format('MMddHHmmss')
-                    def randomNumber = new Random().nextInt(100)  // Zufallszahl zwischen 0 und 99
-                    env.DOMAIN = "jenkinsc-${timestamp}${randomNumber}.comquent.academy"
-                }
-            }    
         }
         stage('Setup Environment') {
             steps {
