@@ -24,9 +24,9 @@ pipeline {
                     def timestamp = new Date().format('MMddHHmmss')
                     def randomNumber = new Random().nextInt(100)  // Zufallszahl zwischen 0 und 99
                     env.DOMAIN = "jenkinsc-${timestamp}${randomNumber}.comquent.academy"
-
-            }
-        }    
+                }
+            }    
+        }
         stage('Setup Environment') {
             steps {
                 withCredentials([
