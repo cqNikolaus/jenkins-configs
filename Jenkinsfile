@@ -6,8 +6,6 @@ pipeline {
     }
   }
   environment {
-    API_TOKEN = credentials('HETZNER_API_TOKEN')
-    DNS_API_TOKEN = credentials('HETZNER_DNS_API_TOKEN')
     DOMAIN = "${params.DOMAIN}"
     ZONE_NAME = "comquent.academy" 
     SSH_KEY_NAME = 'clemens.nikolaus@comquent.de'
