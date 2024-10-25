@@ -23,7 +23,7 @@ credentials:
           scope: GLOBAL
           id: "hetzner-api-token"
           secret: ${API_TOKEN}
-          description: "Hetzner ${ADMIN_USER} and ${ADMIN_PASS}"
+          description: "Hetzner API Token"
       - string:
           scope: GLOBAL
           id: "hetzner-dns-api-token"

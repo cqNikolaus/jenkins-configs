@@ -6,8 +6,6 @@ pipeline {
         }
     }
     environment {
-        H_API_TOKEN = credentials('hetzner-api-token')
-        H_DNS_API_TOKEN = credentials('hetzner-dns-api-token')
         DOMAIN = "jenkinscc-${env.BUILD_NUMBER}.comquent.academy" 
         ZONE_NAME = "comquent.academy"
         SSH_KEY_NAME = 'clemens.nikolaus@comquent.de'
@@ -23,7 +21,7 @@ pipeline {
         stage('Setup Environment') {
             steps {
                 withCredentials([
-                    sshUserPrivateKey(credentialsId: 'ssh-private-key', keyFileVariable: 'SSH_KEY_FILE'),
+                    sshUserPrivateKey(credentialsId: 'ssh-private-key', keyFileVariable: 'H_SSH_PRIVATE_KEY'),
                     usernamePassword(credentialsId: 'jenkins-admin-credentials', usernameVariable: 'JENKINS_USER', passwordVariable: 'JENKINS_PASS'),
                     string(credentialsId: 'hetzner-api-token', variable: 'H_API_TOKEN'),
                     string(credentialsId: 'hetzner-dns-api-token', variable: 'H_DNS_API_TOKEN')
