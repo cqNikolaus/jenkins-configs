@@ -8,7 +8,7 @@ pipeline {
   environment {
     API_TOKEN = credentials('HETZNER_API_TOKEN')
     DNS_API_TOKEN = credentials('HETZNER_DNS_API_TOKEN')
-    DOMAIN = "jenkins-${timestamp}.comquent.academy"
+    DOMAIN = "jenkins-${env.BUILD_ID}.comquent.academy"
     ZONE_NAME = "comquent.academy" 
     SSH_KEY_NAME = 'clemens.nikolaus@comquent.de'
     JOB_NAME = 'docker-test'
