@@ -65,6 +65,8 @@ jobs:
         description('This job automates Jenkins setup, testing, and environment management.')
         parameters {
           stringParam('DOMAIN', '', 'Specify the domain for the Jenkins instance, e.g. jenkinsinstance.comquent.academy')
+          stringParam('CONFIG_REPO', '', 'GitHub link to the configuration repository.')
+          stringParam('BRANCH', '', 'Branch of the configuration repository to use (optional).')
         }
         definition {
           cpsScm {
@@ -86,6 +88,8 @@ jobs:
         description('This job sets up Jenkins using the Jenkinsfile_setup.')
         parameters {
           stringParam('DOMAIN', '', 'Specify the domain for the Jenkins instance, e.g. jenkinsinstance.comquent.academy')
+          stringParam('CONFIG_REPO', '', 'GitHub link to the configuration repository.')
+          stringParam('BRANCH', '', 'Branch of the configuration repository to use (optional).')
         }
         definition {
           cpsScm {
