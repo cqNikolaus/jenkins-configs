@@ -9,3 +9,12 @@ jenkins:
     loggedInUsersCanDoAnything:
       allowAnonymousRead: false
 
+
+unclassified:
+  location:
+    url: "${DOMAIN}"
+
+appearance:
+  locale:
+    systemLocale: en
+    ignoreAcceptLanguage: true
